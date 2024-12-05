@@ -69,7 +69,7 @@ public class QueryingChannelDataTest extends ApiTestsFixture {
     private void assertChannelProgramsSorted(ChannelData channelData){
         var sortedPrograms = new ArrayList<Program>(channelData.programs());
         sortedPrograms.sort(Comparator.comparingInt(Program::startTimestamp));
-        Assert.assertEquals(channelData.programs(), sortedPrograms, "The programs are not sorted as expected");
+        Assert.assertEquals(channelData.programs(), sortedPrograms, "The programs are not sorted as expected (should be asc by start_timestamp field)");
     }
 
     @Step("Assert channel has currently active program")
@@ -77,7 +77,7 @@ public class QueryingChannelDataTest extends ApiTestsFixture {
         var currentTimestamp = Instant.now().getEpochSecond();
         Assert.assertTrue(channelData.programs().stream().anyMatch(
                 program -> program.startTimestamp() < currentTimestamp && program.endTimestamp() > currentTimestamp),
-                "No active program found in channel: %s".formatted(channelData.id()));
+                "No currently active programs found in the channel: %s".formatted(channelData.id()));
     }
 
     @Step("Assert channel has no outdated and more than 24h ahead programs")
