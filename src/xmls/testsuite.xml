@@ -3,7 +3,7 @@
 <suite name="Suite1" verbose="1" thread-count="5" parallel="methods" >
     <test name="First test" >
         <classes>
-            <class name="net.megogo.MainTest" />
+            <class name="net.megogo.QueryingChannelDataTest" />
         </classes>
     </test>
 
