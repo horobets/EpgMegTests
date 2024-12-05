@@ -6,13 +6,13 @@ public record TimestampData(
         @JsonProperty("utc_offset")
         Integer utcOffset,
         @JsonProperty("timestamp_gmt")
-        Integer timestampGmt,
+        Long timestampGmt,
         @JsonProperty("timestamp_local")
-        Integer timestampLocal,
+        Long timestampLocal,
         @JsonProperty("timezone")
         String timezone,
         @JsonProperty("timestamp")
-        Integer timestamp,
+        Long timestamp,
         @JsonProperty("time_local")
         String timeLocal) {
 }

@@ -67,7 +67,7 @@ public class QueryingChannelDataTest extends ApiTestsFixture {
     @Step("Assert programs are sorted by start_timestamp field")
     private void assertChannelProgramsSorted(ChannelData channelData){
         var sortedPrograms = new ArrayList<Program>(channelData.programs());
-        sortedPrograms.sort(Comparator.comparingInt(Program::startTimestamp));
+        sortedPrograms.sort(Comparator.comparingLong(Program::startTimestamp));
         Assert.assertEquals(channelData.programs(), sortedPrograms,
                 "The programs are not sorted as expected (should be asc by start_timestamp field)");
     }

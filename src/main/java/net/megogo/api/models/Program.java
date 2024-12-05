@@ -14,9 +14,9 @@ public record Program(
         @JsonProperty("pictures")
         Object pictures,
         @JsonProperty("start_timestamp")
-        Integer startTimestamp,
+        Long startTimestamp,
         @JsonProperty("end_timestamp")
-        Integer endTimestamp,
+        Long endTimestamp,
         @JsonProperty("start")
         String start,
         @JsonProperty("end")
