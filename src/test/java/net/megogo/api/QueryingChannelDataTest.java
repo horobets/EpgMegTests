@@ -68,23 +68,27 @@ public class QueryingChannelDataTest extends ApiTestsFixture {
     private void assertChannelProgramsSorted(ChannelData channelData){
         var sortedPrograms = new ArrayList<Program>(channelData.programs());
         sortedPrograms.sort(Comparator.comparingInt(Program::startTimestamp));
-        Assert.assertEquals(channelData.programs(), sortedPrograms, "The programs are not sorted as expected (should be asc by start_timestamp field)");
+        Assert.assertEquals(channelData.programs(), sortedPrograms,
+                "The programs are not sorted as expected (should be asc by start_timestamp field)");
     }
 
     @Step("Assert channel has currently active program")
     private void assertChannelHasActiveProgram(ChannelData channelData){
-        var currentTimestamp = Instant.now().getEpochSecond();
-        Assert.assertTrue(channelData.programs().stream().anyMatch(
-                program -> program.startTimestamp() < currentTimestamp && program.endTimestamp() > currentTimestamp),
+        Assert.assertTrue(channelData.programs().stream().anyMatch(program ->
+                        Instant.ofEpochSecond(program.startTimestamp()).isBefore(Instant.now()) &&
+                                Instant.ofEpochSecond(program.endTimestamp()).isAfter(Instant.now())),
                 "No currently active programs found in the channel: %s".formatted(channelData.id()));
     }
 
     @Step("Assert channel has no outdated and more than 24h ahead programs")
     private void assertChannelHasNoOutdatedAndFuturePrograms(ChannelData channelData){
-        var highestValidTimestamp = Instant.now().plus(24, ChronoUnit.HOURS).getEpochSecond();
-        var lowestValidTimestamp = Instant.now().getEpochSecond();
-        Assert.assertTrue(channelData.programs().stream().noneMatch(program -> program.startTimestamp() > highestValidTimestamp), "An invalid program scheduled more than 24 hours in the future was found in the channel: %s".formatted(channelData.id()));
-        Assert.assertTrue(channelData.programs().stream().noneMatch(program -> program.endTimestamp() < lowestValidTimestamp), "An invalid program scheduled in the past was found in the channel: %s".formatted(channelData.id()));
+        Assert.assertTrue(channelData.programs().stream().noneMatch(program ->
+                Instant.ofEpochSecond(program.startTimestamp()).isAfter(Instant.now().plus(24, ChronoUnit.HOURS))),
+                "An invalid program scheduled more than 24 hours in the future was found in the channel: %s".formatted(channelData.id()));
+
+        Assert.assertTrue(channelData.programs().stream().noneMatch(program ->
+                Instant.ofEpochSecond(program.endTimestamp()).isBefore(Instant.now())),
+                "An invalid program scheduled in the past was found in the channel: %s".formatted(channelData.id()));
     }
 
 }
