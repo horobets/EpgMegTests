@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Suite1" verbose="1" thread-count="5" parallel="methods" >
-    <test name="First test" >
+    <test name="Querying Channel Data Tests" >
         <classes>
-            <class name="net.megogo.QueryingChannelDataTest" />
+            <class name="net.megogo.api.QueryingChannelDataTest" />
         </classes>
     </test>
 

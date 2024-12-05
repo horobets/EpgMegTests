@@ -1,10 +1,9 @@
-package net.megogo;
+package net.megogo.api;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
-import net.megogo.api.MegogoRestClient;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -50,7 +49,7 @@ public class QueryingChannelDataTest {
     @Story("Error On Missing Channel Id")
     public void errorOnMissingIdTest() throws IOException {
 
-        var channelRequestResult = megogoRestClient.megogoScheduleService.getChannel("").execute();
+        var channelRequestResult = megogoRestClient.megogoScheduleService.getChannel(null).execute();
         Assert.assertFalse(channelRequestResult.isSuccessful(), "The request succeeded, but a failure was expected");
         Assert.assertEquals(channelRequestResult.code(), 400, "Received an unexpected HTTP status code");
         Assert.assertNotNull(channelRequestResult.errorBody(), "The error body is null, but it was expected to contain specific information");
