@@ -52,7 +52,7 @@ public class TimeStampServiceTest extends ApiTestsFixture {
         softAssert.assertNotNull(timestampData.timezone(), "timezone field is missing in the response");
 
         softAssert.assertEquals(timestampData.timestampGmt() + timestampData.utcOffset(), timestampData.timestampLocal().intValue(),
-                "Unexpected timestampLocal");
+                "Unexpected timestamp_local value. Should include a valid offset");
 
         var zonedDateTimeFromTimestamp = ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestampData.timestampGmt()), ZoneId.of(timestampData.timezone()));
         Assert.assertEquals(timestampData.timeLocal(),

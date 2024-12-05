@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -65,7 +64,7 @@ public class QueryingChannelDataTest extends ApiTestsFixture {
     }
 
 
-    @Step("Assert programs sorted")
+    @Step("Assert programs are sorted by start_timestamp field")
     private void assertChannelProgramsSorted(ChannelData channelData){
         var sortedPrograms = new ArrayList<Program>(channelData.programs());
         sortedPrograms.sort(Comparator.comparingInt(Program::startTimestamp));
