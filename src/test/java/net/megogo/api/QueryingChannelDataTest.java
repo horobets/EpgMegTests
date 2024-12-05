@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -81,15 +82,10 @@ public class QueryingChannelDataTest extends ApiTestsFixture {
 
     @Step("Assert channel has no outdated and more than 24h ahead programs")
     private void assertChannelHasNoOutdatedAndFuturePrograms(ChannelData channelData){
-        Assert.assertTrue(channelData.programs().stream().allMatch(this::isProgramWithingValidTimestampRange), "Invalid program program found in channel: %s".formatted(channelData.id()));
-    }
-
-    @Step("Check if the program is withing valid time range")
-    @Parameters({"program"})
-    private boolean isProgramWithingValidTimestampRange(Program program){
-        var lowestValidTimestamp = Instant.now().minus(24, ChronoUnit.HOURS).getEpochSecond();
         var highestValidTimestamp = Instant.now().plus(24, ChronoUnit.HOURS).getEpochSecond();
-        return program.startTimestamp() > lowestValidTimestamp && program.startTimestamp() < highestValidTimestamp;
+        var lowestValidTimestamp = Instant.now().getEpochSecond();
+        Assert.assertTrue(channelData.programs().stream().noneMatch(program -> program.startTimestamp() > highestValidTimestamp), "An invalid program scheduled more than 24 hours in the future was found in the channel: %s".formatted(channelData.id()));
+        Assert.assertTrue(channelData.programs().stream().noneMatch(program -> program.endTimestamp() < lowestValidTimestamp), "An invalid program scheduled in the past was found in the channel: %s".formatted(channelData.id()));
     }
 
 }
