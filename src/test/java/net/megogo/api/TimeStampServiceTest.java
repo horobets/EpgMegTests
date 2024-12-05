@@ -32,7 +32,7 @@ public class TimeStampServiceTest extends ApiTestsFixture {
         var localTimestamp = Instant.now().getEpochSecond();
 
         assertTimestamp(returnedTimeData.data().timestamp(), localTimestamp, 5);
-        assertTimestampDataFormat(returnedTimeData.data());
+        assertTimestampDataFieldsFormat(returnedTimeData.data());
     }
 
     @Step("Assert Timestamp")
@@ -41,8 +41,8 @@ public class TimeStampServiceTest extends ApiTestsFixture {
                 "Timestamp differs more than %dms. Actual: %d; Expected: %d".formatted(acceptableDiscrepancy, actualTimestamp, expectedTimestamp));
     }
 
-    @Step("Assert Timestamp Data Format")
-    private void assertTimestampDataFormat(TimestampData timestampData){
+    @Step("Assert All Timestamp Data Fields Format")
+    private void assertTimestampDataFieldsFormat(TimestampData timestampData){
         var softAssert = new SoftAssert();
         softAssert.assertNotNull(timestampData.timestamp(), "timestamp field is missing in the response");
         softAssert.assertNotNull(timestampData.timestampGmt(), "timestamp_gmt field is missing in the response");
