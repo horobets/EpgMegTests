@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
 import net.megogo.api.models.TimestampData;
-import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -24,7 +23,6 @@ public class TimeStampServiceTest extends ApiTestsFixture {
     @Test
     @Story("Return the Accurate Current Time")
     public void accurateCurrentTimestampTest() throws IOException {
-
         var timeRequestResult = megogoRestClient.megogoScheduleService.getTime().execute();
         assertApiRequest(timeRequestResult);
 
@@ -58,6 +56,6 @@ public class TimeStampServiceTest extends ApiTestsFixture {
         var zonedDateTimeFromTimestamp = ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestampData.timestampGmt()), ZoneId.of(timestampData.timezone()));
         Assert.assertEquals(timestampData.timeLocal(),
                 zonedDateTimeFromTimestamp.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, uuuu h:mm:ss a XXX", Locale.ENGLISH)),
-                "Date Time Format mismatch");
+                "Date Time Format in time_local field mismatch");
     }
 }
