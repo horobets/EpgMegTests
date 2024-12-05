@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import retrofit2.Response;
 
-public class MegApiTestsFixture {
+public class ApiTestsFixture {
 
     protected MegogoRestClient megogoRestClient;
 
@@ -20,4 +20,5 @@ public class MegApiTestsFixture {
         Assert.assertEquals(response.code(), 200, "Received an unexpected HTTP status code");
         Assert.assertNotNull(response.body(), "Request body is null, but it was expected to contain specific information");
     }
+
 }
