@@ -24,5 +24,9 @@ public record Program(
         @JsonProperty("virtual_object_id")
         String virtualObjectId,
         @JsonProperty("schedule_type")
-        String scheduleType
+        String scheduleType,
+        @JsonProperty("season")
+        String season,
+        @JsonProperty("episode")
+        String episode
 ) {}
