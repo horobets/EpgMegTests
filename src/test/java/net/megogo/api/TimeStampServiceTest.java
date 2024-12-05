@@ -31,7 +31,7 @@ public class TimeStampServiceTest extends ApiTestsFixture {
         var returnedTimeData = timeRequestResult.body();
         var localTimestamp = Instant.now().getEpochSecond();
 
-        assertTimestamp(returnedTimeData.data().timestamp(), localTimestamp, 10);
+        assertTimestamp(returnedTimeData.data().timestamp(), localTimestamp, 5);
         assertTimestampDataFormat(returnedTimeData.data());
     }
 
@@ -44,12 +44,12 @@ public class TimeStampServiceTest extends ApiTestsFixture {
     @Step("Assert Timestamp Data Format")
     private void assertTimestampDataFormat(TimestampData timestampData){
         var softAssert = new SoftAssert();
-        softAssert.assertNotNull(timestampData.timestamp(), "timestamp is missing in the response");
-        softAssert.assertNotNull(timestampData.timestampGmt(), "timestampGmt is missing in the response");
-        softAssert.assertNotNull(timestampData.timestampLocal(), "timestampLocal is missing in the response");
-        softAssert.assertNotNull(timestampData.utcOffset(), "timeLocal is missing in the response");
-        softAssert.assertNotNull(timestampData.timeLocal(), "timeLocal is missing in the response");
-        softAssert.assertNotNull(timestampData.timezone(), "timezone is missing in the response");
+        softAssert.assertNotNull(timestampData.timestamp(), "timestamp field is missing in the response");
+        softAssert.assertNotNull(timestampData.timestampGmt(), "timestamp_gmt field is missing in the response");
+        softAssert.assertNotNull(timestampData.timestampLocal(), "timestamp_local field is missing in the response");
+        softAssert.assertNotNull(timestampData.utcOffset(), "utc_offset field is missing in the response");
+        softAssert.assertNotNull(timestampData.timeLocal(), "time_local field is missing in the response");
+        softAssert.assertNotNull(timestampData.timezone(), "timezone field is missing in the response");
 
         softAssert.assertEquals(timestampData.timestampGmt() + timestampData.utcOffset(), timestampData.timestampLocal().intValue(),
                 "Unexpected timestampLocal");
