@@ -17,23 +17,20 @@
         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
     </properties>
 
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.1.2</version>
-        <configuration>
-            <argLine>
-                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-            </argLine>
-        </configuration>
-        <dependencies>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
-        </dependencies>
-    </plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -48,6 +45,7 @@
     </dependencyManagement>
 
     <dependencies>
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -71,7 +69,28 @@
             <artifactId>allure-testng</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.18.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-jackson</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
