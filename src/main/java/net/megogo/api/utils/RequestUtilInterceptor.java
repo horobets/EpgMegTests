@@ -188,11 +188,11 @@ public class RequestUtilInterceptor implements Interceptor {private static final
 
     public void writeErrorLog(StringBuffer allLogs, String attachmentName) {
         logger.error(allLogs.toString());
-        allureTxtAttachment(attachmentName, allLogs.toString());
+        allureTextAttachment(attachmentName, allLogs.toString());
     }
 
     @Attachment(value = "{0}", type = "text/plain")
-    public static String allureTxtAttachment(String name, String text) {
+    public static String allureTextAttachment(String name, String text) {
         return text;
     }
 }
