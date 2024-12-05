@@ -156,11 +156,8 @@ public class RequestUtilInterceptor implements Interceptor {private static final
         return headers;
     }
 
-    /**
-     * Returns true if the body in question probably contains human readable text. Uses a small sample
-     * of code points to detect unicode control characters commonly used in binary file signatures.
-     */
-    static boolean isPlaintext(Buffer buffer) {
+
+   private static boolean isPlaintext(Buffer buffer) {
         try {
             Buffer prefix = new Buffer();
             long byteCount = buffer.size() < 64 ? buffer.size() : 64;
