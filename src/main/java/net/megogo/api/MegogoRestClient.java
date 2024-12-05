@@ -1,5 +1,6 @@
 package net.megogo.api;
 
+import net.megogo.api.utils.RequestUtilInterceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -11,6 +12,7 @@ public class MegogoRestClient {
     public static final String BASE_URL = "https://epg.megogo.net/";
 
     OkHttpClient client = new OkHttpClient.Builder()
+            .addInterceptor(new RequestUtilInterceptor())
             .build();
 
     Retrofit retrofit = new Retrofit.Builder()
