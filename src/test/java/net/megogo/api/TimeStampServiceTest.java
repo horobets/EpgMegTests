@@ -36,7 +36,7 @@ public class TimeStampServiceTest extends ApiTestsFixture {
     @Step("Assert Timestamp")
     private void assertTimestamp(long actualTimestamp, long expectedTimestamp, long acceptableDiscrepancy){
         Assert.assertTrue(Math.abs(actualTimestamp - expectedTimestamp) <= acceptableDiscrepancy,
-                "Timestamp differs more than %dms. Actual: %d; Expected: %d".formatted(acceptableDiscrepancy, actualTimestamp, expectedTimestamp));
+                "Timestamp differs more than %ds. Actual: %d; Expected: %d".formatted(acceptableDiscrepancy, actualTimestamp, expectedTimestamp));
     }
 
     @Step("Assert All Timestamp Data Fields Format")
